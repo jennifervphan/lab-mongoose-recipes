@@ -1,0 +1,38 @@
+<h1>Add Recipe</h1>
+<form class="addRecipe-container" action="/addNewRecipe" method="POST">
+
+    <label for="name">Title</label>
+    <input type="text" id="name" name="title">
+
+    <label for="level">Level</label>
+    <select id = "levels" name="level">
+               <option value = "Easy Peasy">Easy Peasy</option>
+               <option value = "Amateur Chef">Amateur Chef</option>
+               <option value = "UltraPro Chef">UltraPro Chef</option>
+    </select>
+
+    <label for="dishType">Dish Type</label>
+    <select id = "dishType" name="dishType">
+               <option value = "Breakfast">Breakfast</option>
+               <option value = "Dish">Dish</option>
+               <option value = "Snack">Snack</option>
+                <option value = "Drink">Drink</option>
+               <option value = "Dessert">Dessert</option>
+               <option value = "Other">Other</option>
+
+    </select>
+    <label for="cuisine">Cuisine</label>
+    <input type="text" id="cuisine" name="cuisine">
+
+    <label for="ingredients">Ingredients</label>
+    <div>
+    <input type="text" id="ingredients">
+    <input type="button" value="add to ingredients" id="add">
+    <ul id="list">
+        
+    </ul>
+    {{!-- <textarea id="ingredients" name="ingredients" style="height:100px"></textarea> --}}
+    </div>
+    <input type="submit" value="Create">
+
+  </form>

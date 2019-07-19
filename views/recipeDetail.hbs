@@ -1,0 +1,11 @@
+<h1>{{recipe.title}}</h1>
+<h2>{{recipe.creator}}</h2>
+<p>Level: {{recipe.level}}</p>
+<p>Duration: {{recipe.duration}}</p>
+<img src="{{recipe.image}}">
+<ul>
+{{#each recipe.ingredients}}
+<li>{{this}}</li>
+{{/each}}
+</ul>
+<a href="/edit?recipe_id={{recipe._id}}"><input type="button" value="Edit"></a>
