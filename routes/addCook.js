@@ -34,7 +34,11 @@ router.post('/addCook', (req, res, next) => {
 
             newCook.save()
                 .then((cook) => {
-                    res.render('cookProfile', { cook })
+                    if (req.session.user) {
+                        res.render('cookProfile', { cook })
+                    } else {
+                        res.render('cookProfile', { cook, login: true })
+                    }
                 })
                 .catch(err => {
                     res.status(500).send("ERROR");

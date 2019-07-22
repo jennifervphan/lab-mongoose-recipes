@@ -1,13 +1,41 @@
 body {
-    background-color: aquamarine;
+    background-color: rgb(221, 221, 221);
     margin: 0;
-    padding: 20px 50px;
 }
 
 
 /*style for first page*/
 
+.nav {
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    background-color: grey;
+}
+
+.nav ul {
+    position: fixed;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav li {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: white;
+}
+
 .index-container {
+    padding: 20px 15px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -110,4 +138,36 @@ input[type=submit]:hover {
 .edit-container {
     display: flex;
     flex-direction: column;
+}
+
+
+/*register page*/
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form input {
+    width: 30%;
+}
+
+input[type=password],
+select,
+textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+
+/*login page*/
+
+.invalid {
+    color: red;
 }

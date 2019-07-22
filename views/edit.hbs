@@ -1,20 +1,23 @@
 <h1>Edit recipe</h1>
 {{!-- {{#each recipe}} --}}
 <form class="edit-container" action="/edit?recipe_id={{recipe._id}}" method="POST">
+  
   <label for="">Title:</label>
   <input type="text" name="title" value="{{recipe.title}}">
 
   <label for="cook">Chef</label>
-    <select name="creator">
-        {{#each cooks}}
-            <option value="{{_id}}">{{firstName}} {{lastName}}</option>
-        {{/each}}
+    <select selected name="creator">
+      <option>{{recipe.creator.firstName}} {{recipe.creator.lastName}}</option>
+      {{#each cooks}}
+          <option value="{{_id}}">{{firstName}} {{lastName}}</option>
+      {{/each}}
     </select>
 
   <label for="">Ingredients:</label>
-  {{#each recipe.ingredients}}
-  <input type="text" name="ingredients" value="{{this}}">
-{{/each}}
+    {{#each recipe.ingredients}}
+      <input type="text" name="ingredients" value="{{this}}">
+    {{/each}}
+
   <label for="">Duration:</label>
   <input type="number" name="duration" value="{{recipe.duration}}">
 
