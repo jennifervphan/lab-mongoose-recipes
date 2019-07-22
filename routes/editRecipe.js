@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const Cook = require('../models/Cook')
 const Recipe = require('../models/Recipe');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -9,8 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get('/edit', (req, res, next) => {
     const idNum = req.query.recipe_id;
     Recipe.findOne({ _id: idNum })
+        .populate("creator")
         .then(recipe => {
-            res.render('edit', { recipe });
+            Cook.find({})
+                .then((cooks) => {
+                    res.render('edit', { recipe, cooks });
+                })
         })
         .catch(err => {
             res.status(500).send("ERROR");
@@ -19,18 +24,14 @@ router.get('/edit', (req, res, next) => {
 
 router.post('/edit', (req, res, next) => {
     let recipeId = req.query.recipe_id;
-    debugger
-    Recipe.update({ _id: recipeId }, {
-            $set: {
-                title: req.body.title,
-                creator: req.body.creator,
-                ingredients: req.body.ingredients,
-                duration: req.body.duration
-            }
-        }, { new: true })
+    let editRecipe = {
+        title: req.body.title,
+        creator: req.body.creator,
+        ingredients: req.body.ingredients,
+        duration: req.body.duration
+    }
+    Recipe.findByIdAndUpdate(recipeId, editRecipe, { new: true })
         .then((recipe) => {
-            console.log(recipe)
-            debugger
             res.render('recipeDetail', { recipe });
         })
         .catch((error) => {

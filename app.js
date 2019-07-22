@@ -30,11 +30,14 @@ app.use('/', recipe);
 const edit = require('./routes/editRecipe');
 app.use('/', edit);
 
-const addNew = require('./routes/addNewRecipe');
-app.use('/', addNew);
+const deleteRecipe = require('./routes/deleteRecipe');
+app.use('/', deleteRecipe);
 
-const recipePage = require('./routes/newRecipe');
-app.use('/', recipePage)
+const addNewRecipe = require('./routes/addNewRecipe');
+app.use('/', addNewRecipe);
+
+const addCook = require('./routes/addCook');
+app.use('/', addCook);
 
 app.listen(3000, () => {
     console.log("App listening");

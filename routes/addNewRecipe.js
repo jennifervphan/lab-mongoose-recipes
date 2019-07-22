@@ -1,39 +1,62 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const Cook = require('../models/Cook');
 const Recipe = require('../models/Recipe');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/addNewRecipe', (req, res, next) => {
-    res.render('addNewRecipe');
+    Cook.find({})
+        .then((cooks) => {
+            res.render("addNewRecipe", { cooks });
+        })
+        .catch((err) => {
+            next();
+        })
 });
 
 router.post('/addNewRecipe', (req, res, next) => {
-    debugger
+    let arrIngredients = [];
+    let newArr = req.body.ingredients.split(',');
+
+    for (let i = 0; i < newArr.length; i++) {
+        arrIngredients.push(newArr[i].trim())
+    }
+
     if (req.body.title &&
         req.body.level &&
         req.body.dishType &&
         req.body.cuisine &&
-        req.body.ingredients) {
+        req.body.ingredients &&
+        req.body.creator &&
+        req.body.duration) {
         var recipeData = new Recipe({
             title: req.body.title,
             level: req.body.level,
             dishType: req.body.dishType,
             cuisine: req.body.cuisine,
-            ingredients: req.body.ingredients
+            ingredients: arrIngredients,
+            creator: mongoose.Types.ObjectId(req.body.creator),
+            duration: req.body.duration
         });
         debugger
-        recipeData.save()
+        recipeData.save(
+                Recipe.populate(recipeData, 'creator'))
             .then((recipe) => {
-                console.log(recipe)
-                res.render('newRecipe', { recipe });
+                res.render('recipeDetail', { recipe });
             })
             .catch(err => {
                 res.status(500).send("ERROR");
             })
+    } else {
+        var err = new Error('All fields required.');
+        err.status = 400;
+        return next(err);
     }
+
 })
 
 module.exports = router;

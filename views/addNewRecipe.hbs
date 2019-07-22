@@ -1,5 +1,5 @@
 <h1>Add Recipe</h1>
-<form class="addRecipe-container" action="/addNewRecipe" method="POST">
+<form class="add-container" action="/addNewRecipe" method="POST">
 
     <label for="name">Title</label>
     <input type="text" id="name" name="title">
@@ -19,18 +19,28 @@
                 <option value = "Drink">Drink</option>
                <option value = "Dessert">Dessert</option>
                <option value = "Other">Other</option>
-
     </select>
+
+    <label for="cook">Chef</label>
+    <select name="creator">
+        {{#each cooks}}
+            <option value="{{_id}}">{{firstName}} {{lastName}}</option>
+        {{/each}}
+    </select>
+
     <label for="cuisine">Cuisine</label>
     <input type="text" id="cuisine" name="cuisine">
 
+    <label for="duration">Duration</label>
+    <input type="text" id="duration" name="duration">
+
     <label for="ingredients">Ingredients</label>
     <div>
-    <input type="text" id="ingredients">
-    <input type="button" value="add to ingredients" id="add">
+    <input type="text" id="ingredients" name="ingredients">
+    {{!-- <input type="button" value="add to ingredients" id="add">
     <ul id="list">
         
-    </ul>
+    </ul> --}}
     {{!-- <textarea id="ingredients" name="ingredients" style="height:100px"></textarea> --}}
     </div>
     <input type="submit" value="Create">

@@ -1,5 +1,5 @@
 <h1>{{recipe.title}}</h1>
-<h2>{{recipe.creator}}</h2>
+<p>Chef: {{recipe.creator.firstName}} {{recipe.creator.lastName}}</p>
 <p>Level: {{recipe.level}}</p>
 <p>Duration: {{recipe.duration}}</p>
 <img src="{{recipe.image}}">
@@ -9,3 +9,4 @@
 {{/each}}
 </ul>
 <a href="/edit?recipe_id={{recipe._id}}"><input type="button" value="Edit"></a>
+<a href="/delete?recipe_id={{recipe._id}}"><input type="button" value="DELETE"></a>

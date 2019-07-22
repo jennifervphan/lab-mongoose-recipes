@@ -4,12 +4,17 @@
   <label for="">Title:</label>
   <input type="text" name="title" value="{{recipe.title}}">
 
-  <label for="">Creator:</label>
-  <input type="text" name="creator" value="{{recipe.creator}}">
+  <label for="cook">Chef</label>
+    <select name="creator">
+        {{#each cooks}}
+            <option value="{{_id}}">{{firstName}} {{lastName}}</option>
+        {{/each}}
+    </select>
 
   <label for="">Ingredients:</label>
-  <input type="text" name="ingredients" value="{{recipe.ingredients}}">
-
+  {{#each recipe.ingredients}}
+  <input type="text" name="ingredients" value="{{this}}">
+{{/each}}
   <label for="">Duration:</label>
   <input type="number" name="duration" value="{{recipe.duration}}">
 

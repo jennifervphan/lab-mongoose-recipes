@@ -1,4 +1,9 @@
-
 <h1>{{recipe.title}}</h1>
+<p>Chef: {{recipe.creator.firstName}} {{recipe.creator.lastName}}</p>
+<p>Level: {{recipe.level}}</p>
 <img src="{{recipe.image}}">
-<p>{{recipe.ingredients}}</p>
+<ul>
+{{#each recipe.ingredients}}
+<li>{{this}}</li>
+{{/each}}
+</ul>

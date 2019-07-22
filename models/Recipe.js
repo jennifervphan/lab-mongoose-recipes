@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const recipeSchema = new Schema({
     // TODO: write the schema
@@ -25,14 +26,15 @@ const recipeSchema = new Schema({
     },
     image: {
         type: String,
-        default: 'https://images.media-allrecipes.com/images/75131.jpg.'
+        default: 'https://images.media-allrecipes.com/images/75131.jpg'
     },
     duration: {
         type: Number,
         min: 0
     },
     creator: {
-        type: String
+        type: ObjectId,
+        ref: 'cooks'
     },
     created: {
         type: Date,

@@ -1,5 +1,5 @@
 body {
-    background-color: coral;
+    background-color: aquamarine;
     margin: 0;
     padding: 20px 50px;
 }
@@ -11,16 +11,15 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     flex-wrap: wrap;
-    padding: 0;
-    margin: 0;
     width: 100%;
 }
 
 .index-container div {
-    width: 28%;
-    padding: 20px;
+    width: 22%;
+    padding: 10px;
+    margin: 0;
 }
 
 .index-container img {
@@ -35,6 +34,7 @@ a {
 button {
     width: 150px;
     height: 50px;
+    padding: 20px 0;
     background-color: grey;
     color: white;
     border: none;
@@ -45,9 +45,10 @@ button {
 
 /*style for add new recipe page*/
 
-.addRecipe-container {
+.add-container {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 }
 
 input[type=text],
@@ -60,6 +61,12 @@ textarea {
     box-sizing: border-box;
     margin-top: 6px;
     margin-bottom: 16px;
+}
+
+input[type=date],
+select,
+textarea {
+    width: 50%
 }
 
 input[type=number],
