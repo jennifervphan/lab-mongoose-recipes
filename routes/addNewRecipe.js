@@ -1,12 +1,12 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 const Cook = require('../models/Cook');
 const Recipe = require('../models/Recipe');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/addNewRecipe', (req, res, next) => {
     Cook.find({})
@@ -16,6 +16,7 @@ router.get('/addNewRecipe', (req, res, next) => {
         .catch((err) => {
             next();
         })
+
 });
 
 router.post('/addNewRecipe', (req, res, next) => {

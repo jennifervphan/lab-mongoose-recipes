@@ -1,11 +1,9 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 const Cook = require('../models/Cook');
-const Recipe = require('../models/Recipe');
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/addCook', (req, res, next) => {
     res.render('addCook');
@@ -34,11 +32,7 @@ router.post('/addCook', (req, res, next) => {
 
             newCook.save()
                 .then((cook) => {
-                    if (req.session.user) {
-                        res.render('cookProfile', { cook })
-                    } else {
-                        res.render('cookProfile', { cook, login: true })
-                    }
+                    res.render('cookProfile', { cook })
                 })
                 .catch(err => {
                     res.status(500).send("ERROR");

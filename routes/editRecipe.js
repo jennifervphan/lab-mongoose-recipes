@@ -1,13 +1,13 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 const Cook = require('../models/Cook')
 const Recipe = require('../models/Recipe');
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/edit', (req, res, next) => {
+    debugger
     const idNum = req.query.recipe_id;
     Recipe.findOne({ _id: idNum })
         .populate("creator")
@@ -20,6 +20,7 @@ router.get('/edit', (req, res, next) => {
         .catch(err => {
             res.status(500).send("ERROR");
         })
+
 });
 
 router.post('/edit', (req, res, next) => {
@@ -37,14 +38,6 @@ router.post('/edit', (req, res, next) => {
         .catch((error) => {
             console.log(error);
         })
-        // Recipe.findOne({ _id: recipeId })
-        //     .then((recipe) => {
-        //         console.log(recipe)
-        //         res.render('recipeDetail', { recipe });
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
 })
 
 module.exports = router;

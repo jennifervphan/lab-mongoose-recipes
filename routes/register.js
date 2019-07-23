@@ -1,13 +1,15 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 const User = require('../models/User');
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/register', (req, res, next) => {
-    res.render('register', { login: true });
+    res.render('register');
 })
 
 router.post('/register', (req, res, next) => {
@@ -22,20 +24,23 @@ router.post('/register', (req, res, next) => {
         req.body.username &&
         req.body.password &&
         req.body.email) {
-        var newUser = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email
-        }
-        User.create(newUser)
-            .then(user => {
-                res.render('profile', { user, login: false })
-            })
-            .catch(() => {
-                res.status(500).send("ERROR");
-            })
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+            // Store hash in your password DB.
+            var newUser = {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                username: req.body.username,
+                password: hash,
+                email: req.body.email
+            }
+            User.create(newUser)
+                .then(user => {
+                    res.render('profile', { user })
+                })
+                .catch(() => {
+                    res.status(500).send("ERROR");
+                })
+        });
     }
 })
 module.exports = router;

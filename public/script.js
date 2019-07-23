@@ -22,3 +22,12 @@ function validateMyForm() {
         form.submit()
     }
 }
+
+function myFunction() {
+    var x = document.getElementById("logPass");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}

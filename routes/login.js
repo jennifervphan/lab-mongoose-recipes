@@ -1,28 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
 const User = require('../models/User');
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const bcrypt = require('bcrypt');
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/logIn', (req, res, next) => {
-    res.render('login', { invalid: false, login: true });
+    res.render('login', { invalid: false });
 })
 
 router.post('/logIn', (req, res, next) => {
     User.findOne({ email: req.body.logemail })
         .then((user) => {
             if (user) {
-                if (user.password === req.body.logpassword) {
-                    //start session
-                    req.session.user = user;
-                    res.render('profile', { user, login: false })
-                } else {
-                    res.render("login", { invalid: true, login: true });
-                }
+                bcrypt.compare(req.body.logpassword, user.password, function(err, match) {
+                    debugger
+                    if (match) {
+                        req.session.user = user;
+                        res.render('profile', { user })
+                    } else {
+                        res.render("login", { invalid: true });
+                    }
+                })
             } else {
-                res.render('login', { invalid: true, login: true });
+                res.render('login', { invalid: true });
             }
         })
         .catch(() => {

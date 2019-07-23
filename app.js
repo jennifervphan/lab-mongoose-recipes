@@ -8,11 +8,17 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
+
+mongoose.Promise = global.Promise;
+const db = mongoose.connection
 
 app.use(session({
     secret: 'work hard',
     resave: false,
     saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: db })
+
 }))
 
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +41,22 @@ mongoose.connect('mongodb://localhost/kitchen', { useNewUrlParser: true })
         console.error('Error connecting to mongo', err);
     });
 
+let protectedRoute = function(req, res, next) {
+    if (req.session.user) {
+        res.locals.user = req.session.user;
+        next();
+    } else {
+        res.redirect('/logIn')
+    }
+}
+
+let passUser = function(req, res, next) {
+    res.locals.user = req.session.user;
+    next();
+}
+
+app.use(passUser);
+
 const index = require('./routes/index');
 app.use('/', index)
 
@@ -43,12 +65,6 @@ app.use('/', recipes);
 
 const recipe = require('./routes/recipeDetail');
 app.use('/', recipe);
-
-const edit = require('./routes/editRecipe');
-app.use('/', edit);
-
-const deleteRecipe = require('./routes/deleteRecipe');
-app.use('/', deleteRecipe);
 
 const addNewRecipe = require('./routes/addNewRecipe');
 app.use('/', addNewRecipe);
@@ -67,6 +83,12 @@ app.use('/', profile);
 
 const logOut = require('./routes/logOut');
 app.use('/', logOut);
+
+const edit = require('./routes/editRecipe');
+app.use('/', protectedRoute, edit);
+
+const deleteRecipe = require('./routes/deleteRecipe');
+app.use('/', protectedRoute, deleteRecipe);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

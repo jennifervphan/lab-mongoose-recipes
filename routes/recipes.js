@@ -8,11 +8,7 @@ router.get('/recipes', (req, res, next) => {
     Recipe.find()
         .populate("cook")
         .then(recipes => {
-            if (req.session.user) {
-                res.render('recipes', { recipes });
-            } else {
-                res.render('recipes', { recipes, login: true });
-            }
+            res.render('recipes', { recipes, user: req.session.user });
         })
         .catch(err => {
             res.status(500).send("ERROR");

@@ -154,6 +154,18 @@ input[type=submit]:hover {
     width: 30%;
 }
 
+.register-form div {
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 12px;
+}
+
+.register-form div input {
+    width: 20px;
+}
+
 input[type=password],
 select,
 textarea {

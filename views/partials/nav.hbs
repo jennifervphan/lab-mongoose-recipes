@@ -1,11 +1,11 @@
 <ul class="nav">
     <li><a href="/"></a></li>
     <li><a href="/recipes">Recipes</a></li>
-    {{#if login}}
+    {{#if user}}
+     <li><a href="/profile">Profile</a></li>
+    <li><a href="/logout">Log out</a></li>
+   {{else}}
     <li><a href="/register">Register</a></li>
     <li><a href="/login">Log in</a></li>
-   {{else}}
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/logout">Log out</a></li>
     {{/if}}
 </ul>

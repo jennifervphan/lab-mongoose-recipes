@@ -1,11 +1,15 @@
 <form action="/logIn" method="POST">
     <div class="register-form">
-    <h1>Log in</h1>
-    {{#if invalid}}
-        <p class="invalid">Invalid username/ password. Please try again</p>
-    {{/if}}
-    <input type="text" name="logemail" placeholder="E-mail" required="">
-    <input type="password" name="logpassword" placeholder="Password" required="">
-    <input type="submit" value="LOGIN NOW">
+        <h1>Log in</h1>
+        {{#if invalid}}
+            <p class="invalid">Invalid username/ password. Please try again</p>
+        {{/if}}
+        <input type="text" name="logemail" placeholder="E-mail" required="">
+        <input id="logPass" type="password" name="logpassword" placeholder="Password" required="">
+        <div>
+            <input type="checkbox" onclick="myFunction()"><label>Show password</label>
+        </div>
+        <input type="submit" value="LOGIN NOW">
+        <p>Don't have an account? <a href="/register">Register now!</a></p>
     </div>
 </form>
