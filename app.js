@@ -30,7 +30,8 @@ hbs.registerPartials(__dirname + '/views/partials');
 mongoose.connect('mongodb://localhost/kitchen', { useNewUrlParser: true })
     .then((x) => {
         console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
-    }).catch(err => {
+    })
+    .catch(err => {
         console.error('Error connecting to mongo', err);
     });
 
